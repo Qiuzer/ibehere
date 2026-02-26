@@ -23,18 +23,6 @@
             margin: 0; padding: 0;
             background-color: var(--bg-white);
             scroll-behavior: smooth;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* 背景装饰线 */
-        .bg-decoration {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.4;
         }
 
         /* 导航栏 */
@@ -48,33 +36,45 @@
         nav .logo { font-weight: 600; font-size: 17px; color: var(--text-main); text-decoration: none; }
         nav .links a { margin-left: 24px; text-decoration: none; color: var(--text-main); font-size: 12px; opacity: 0.8; }
 
-        section { padding: 100px 20px; display: flex; flex-direction: column; align-items: center; position: relative; }
+        /* 通用 Section 样式 */
+        section { 
+            padding: 120px 20px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            position: relative; 
+            overflow: hidden; 
+        }
 
-        /* Hero 屏 */
-        .hero { text-align: center; background: transparent; padding-top: 150px; }
+        /* 背景装饰容器 */
+        .section-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Hero: 声音波动感 */
+        .hero { text-align: center; padding-top: 180px; }
         .hero h1 { font-size: 56px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 10px; }
         .hero p { font-size: 24px; color: var(--text-secondary); font-weight: 400; margin-bottom: 40px; }
 
-        /* 下载占位按钮 */
+        /* 下载按钮 */
         .download-badges { display: flex; gap: 15px; margin-bottom: 60px; }
         .badge {
             width: 140px; height: 44px; background: #000; border-radius: 6px;
             display: flex; align-items: center; padding: 0 12px; color: white; text-decoration: none;
+            transition: transform 0.2s;
         }
+        .badge:hover { transform: scale(1.02); }
         .badge-text { text-align: left; margin-left: 8px; line-height: 1.2; }
         .badge-text span { display: block; font-size: 9px; }
         .badge-text strong { font-size: 13px; }
-        .status-tag { font-size: 11px; color: var(--accent-blue); margin-top: 6px; font-weight: 500; }
+        .status-tag { font-size: 11px; color: var(--accent-blue); margin-top: 8px; font-weight: 500; }
 
-        /* 功能特性展示 */
-        .features { 
-            background: rgba(251, 251, 253, 0.7); 
-            flex-direction: row; 
-            justify-content: center; 
-            gap: 100px; 
-            max-width: 100%;
-        }
-        .features-visual { position: relative; width: 400px; height: 450px; }
+        /* Features: 连接与节点感 */
+        .features { background: var(--bg-light); flex-direction: row; justify-content: center; gap: 80px; }
+        .features-visual { position: relative; width: 400px; height: 420px; }
         .screen-mockup { 
             width: 200px; height: 400px; background: #fff; border-radius: 30px; 
             border: 6px solid #000; position: absolute; left: 0; top: 0; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
@@ -86,47 +86,37 @@
             position: absolute; width: 80px; height: 2px; background: var(--accent-blue);
             top: 220px; left: 180px; z-index: 3; box-shadow: 0 0 10px rgba(0,102,204,0.5);
         }
-
-        .features-content { max-width: 420px; text-align: left; }
+        .features-content { max-width: 420px; text-align: left; z-index: 1; }
         .features-content h2 { font-size: 40px; line-height: 1.1; margin-bottom: 20px; }
-        .features-content ul { list-style: none; padding: 0; margin-top: 30px; }
-        .features-content li { margin-bottom: 18px; font-size: 17px; color: var(--text-secondary); display: flex; align-items: flex-start; }
-        .features-content li::before { content: "•"; color: var(--accent-blue); font-weight: bold; width: 20px; flex-shrink: 0; }
+        .features-content li { margin-bottom: 18px; font-size: 17px; color: var(--text-secondary); display: flex; }
+        .features-content li::before { content: "•"; color: var(--accent-blue); width: 20px; font-weight: bold; }
 
-        /* 方案选择部分 */
-        .pricing-section { background: transparent; }
+        /* Pricing: 秩序与稳定感 */
+        .pricing-section { background: var(--bg-white); }
         .pricing-section h2 { font-size: 48px; margin-bottom: 50px; }
-        .pricing-grid { display: flex; gap: 30px; max-width: 980px; width: 100%; }
+        .pricing-grid { display: flex; gap: 30px; max-width: 980px; width: 100%; z-index: 1; }
         .card { 
             flex: 1; padding: 40px; border-radius: var(--card-radius); 
-            background: rgba(245, 245, 247, 0.8); border: 1px solid rgba(0,0,0,0.02);
-            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px); transition: all 0.3s ease;
         }
-        .card:hover { background: #fff; box-shadow: 0 20px 40px rgba(0,0,0,0.04); }
-        .card h3 { font-size: 24px; margin-bottom: 8px; }
-        .card .price-info { font-size: 17px; color: var(--text-secondary); margin-bottom: 30px; }
-        .card ul { list-style: none; padding: 0; border-top: 1px solid #e5e5e5; padding-top: 25px; }
-        .card li { margin-bottom: 15px; font-size: 15px; color: var(--text-main); }
-        .card.pro { background: #f5f5f7; border: 1px solid rgba(0,102,204,0.1); }
-        .card.pro h3 { color: var(--accent-blue); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .card.pro { border: 1px solid var(--accent-blue); }
 
-        /* 苹果审核专用说明块 */
+        /* 苹果审核专用声明块 */
         .subscription-terms {
-            max-width: 800px; margin-top: 40px; padding: 20px;
-            background: #f9f9f9; border-radius: 12px; font-size: 12px;
-            color: #86868b; line-height: 1.6; text-align: left;
+            max-width: 980px; margin-top: 40px; padding: 20px;
+            font-size: 12px; color: var(--text-secondary); line-height: 1.6; text-align: left;
         }
-        .subscription-terms strong { color: #1d1d1f; }
 
         /* 页脚 */
-        footer { background: var(--bg-light); padding: 50px 20px; color: var(--text-secondary); font-size: 12px; line-height: 1.6; }
-        .footer-content { max-width: 980px; margin: 0 auto; text-align: left; border-top: 1px solid #d2d2d7; padding-top: 20px; }
-        .footer-links { margin-bottom: 20px; display: flex; gap: 20px; }
-        .footer-links a { color: var(--accent-blue); text-decoration: none; }
-        .footer-links a:hover { text-decoration: underline; }
-        
+        footer { background: var(--bg-light); padding: 60px 20px; }
+        .footer-content { max-width: 980px; margin: 0 auto; border-top: 1px solid #d2d2d7; padding-top: 30px; }
+        .footer-links { margin-bottom: 15px; }
+        .footer-links a { color: var(--text-main); text-decoration: none; margin-right: 20px; font-size: 13px; }
+
         @media (max-width: 834px) {
-            .features { flex-direction: column; align-items: center; gap: 40px; }
+            .features { flex-direction: column; align-items: center; text-align: center; }
             .features-content { text-align: center; }
             .pricing-grid { flex-direction: column; }
             .hero h1 { font-size: 40px; }
@@ -134,12 +124,6 @@
     </style>
 </head>
 <body>
-
-<svg class="bg-decoration" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-    <path d="M-100,200 Q150,50 400,300 T900,100" fill="none" stroke="#0066CC" stroke-width="0.5" />
-    <circle cx="800" cy="200" r="150" fill="none" stroke="#0066CC" stroke-width="0.2" />
-    <path d="M1100,800 Q800,950 500,700 T-100,900" fill="none" stroke="#0066CC" stroke-width="0.5" />
-</svg>
 
 <nav>
     <div class="nav-content">
@@ -153,6 +137,12 @@
 </nav>
 
 <section class="hero" id="hero">
+    <div class="section-bg">
+        <svg width="100%" height="100%" viewBox="0 0 1000 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,200 Q250,100 500,200 T1000,200" fill="none" stroke="rgba(0,102,204,0.1)" stroke-width="2" />
+            <path d="M0,220 Q250,120 500,220 T1000,220" fill="none" stroke="rgba(0,102,204,0.05)" stroke-width="1" />
+        </svg>
+    </div>
     <h1>沟通，是每个人的权利</h1>
     <p>跨屏实时语音转写，让交流更有温度。</p>
     
@@ -166,7 +156,9 @@
         </div>
         <div style="text-align:center">
             <a href="#" class="badge">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M3.609 1.814L13.792 12 3.609 22.186c-.18.18-.285.429-.285.69 0 .541.439.98.98.98.261 0 .51-.105.69-.285l10.873-10.873c.383-.383.383-1.003 0-1.386L5.012.441c-.18-.18-.429-.285-.69-.285-.541 0-.98.439-.98.98 0 .261.105.51.285.69z"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <path d="M3.253 20.844c-.214.22-.34.522-.34.862 0 .093.01.185.03.273l9.462-9.462-9.152-9.152c-.104.148-.168.328-.168.525 0 .34.126.642.34.862l11.662 11.662-11.662 11.662zM17.347 1.325c-.21-.14-.46-.225-.73-.225-.21 0-.41.05-.58.14l-2.61 1.51 3.92 3.92 0-5.345zm.01 16.03l-3.93-3.93 2.62 1.51c.17.1.37.15.58.15.27 0 .52-.085.73-.225l0-5.345 0 7.84zm3.39-10.3l-2.73-1.58-.01 10.42 2.73-1.58c.47-.27.79-.78.79-1.37s-.32-1.1-.79-1.37z"/>
+                </svg>
                 <div class="badge-text"><span>GET IT ON</span><strong>Google Play</strong></div>
             </a>
             <div class="status-tag">Android 版正在准备</div>
@@ -175,6 +167,14 @@
 </section>
 
 <section class="features" id="features">
+    <div class="section-bg">
+        <svg width="100%" height="100%" viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="200" cy="200" r="1" fill="#0066CC" />
+            <circle cx="800" cy="400" r="1" fill="#0066CC" />
+            <line x1="200" y1="200" x2="800" y2="400" stroke="rgba(0,102,204,0.08)" stroke-width="0.5" />
+            <path d="M100,100 L150,150 L100,200" fill="none" stroke="rgba(0,102,204,0.05)" stroke-width="1" />
+        </svg>
+    </div>
     <div class="features-visual">
         <div class="screen-mockup"></div>
         <div class="connection-line"></div>
@@ -185,18 +185,28 @@
         <p style="color:var(--text-secondary); font-size: 19px; margin-top: 20px;">专为听障用户优化，让声音不仅能被听见，更能被清晰地看见。</p>
         <ul>
             <li><strong>多屏互动：</strong> 对方只需扫码，即可在自己的屏幕实时阅读。</li>
-            <li><strong>无障碍阅读：</strong> 支持多种文字排版比例，适应不同视觉需求。</li>
-            <li><strong>隐私保护：</strong> 无需账号，数据本地处理，交流无负担。</li>
+            <li><strong>无障碍阅读：</strong> 支持 1x1 / 2x2 / 3x3 自由排版。</li>
+            <li><strong>尊重隐私：</strong> 核心功能无需账号绑定，不获取多余权限。</li>
         </ul>
     </div>
 </section>
 
 <section class="pricing-section" id="pricing">
-    <h2>订阅方案</h2>
+    <div class="section-bg">
+        <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+                <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,102,204,0.03)" stroke-width="0.5"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+    </div>
+    <h2>找到适合您的在场方式</h2>
     <div class="pricing-grid">
         <div class="card">
             <h3>基础版</h3>
-            <p class="price-info">免费使用</p>
+            <p class="price-info">满足日常沟通所需</p>
             <ul>
                 <li>实时语音转文字 (单次 5 分钟)</li>
                 <li>全模式阅读切换能力</li>
@@ -205,38 +215,31 @@
         </div>
         <div class="card pro">
             <h3>专业版</h3>
-            <p class="price-info">¥12.00 / 月 (首月优惠)</p>
+            <p class="price-info">¥12.00 / 月</p>
             <ul>
                 <li>无限单次转写时长</li>
-                <li>永久云端存储与导出</li>
-                <li>高级识别引擎优先通道</li>
-                <li>自定义个性化排版</li>
+                <li>永久云端历史记录存储</li>
+                <li>深度优化的识别稳定性</li>
+                <li>优先响应的技术支持</li>
             </ul>
         </div>
     </div>
-
-    <div class="subscription-terms">
-        <p><strong>关于自动续费订阅服务：</strong></p>
-        1. 订阅服务：BeHere 专业版月度会员（1个月）。<br>
-        2. 订阅价格：以 iAP 申请信息为准，例如连续包月产品为 12元/月。<br>
-        3. 付款：用户确认购买并付款后计入 iTunes 账户。<br>
-        4. 续订：苹果 iTunes 账户会在到期前 24 小时内扣费，扣费成功后订阅周期顺延一个订阅周期。<br>
-        5. 取消续订：如需取消续订，请在当前订阅周期到期前 24 小时以前，手动在 iOS “设置” —> 点击 “Apple ID” —> 进入“订阅”页面取消订阅。
+    
+    <div class="subscription-terms" id="legal">
+        <p><strong>订阅条款与自动续费说明：</strong></p>
+        <p>• 确认购买后，费用将从您的 iTunes 账户扣除。订阅会自动续期，除非在当前有效期结束前至少 24 小时关闭自动续期。账户将在当前有效期结束前的 24 小时内收到续费账单并确认续费费用。您可以随时在 Apple ID 账户设置中管理或关闭自动续期。</p>
     </div>
 </section>
 
-<footer id="legal">
+<footer>
     <div class="footer-content">
         <div class="footer-links">
             <a href="javascript:void(0)">隐私政策</a>
-            <a href="javascript:void(0)">用户协议 (EULA)</a>
-            <a href="javascript:void(0)">自动续费协议</a>
-            <a href="mailto:contact@ibehere.xyz">联系我们</a>
+            <a href="javascript:void(0)">用户协议</a>
+            <a href="javascript:void(0)">订阅服务协议</a>
         </div>
+        <p>Email: contact@ibehere.xyz</p>
         <p>© 2026 Synx Tech (Beijing) Co., Ltd. All Rights Reserved.</p>
-        <p style="margin-top: 15px; font-size: 11px; opacity: 0.6;">
-            本网站所提及的“BeHere”及“在场”为 Synx Tech 旗下产品。订阅管理、取消及退款需通过 Apple ID 设置进行。
-        </p>
     </div>
 </footer>
 
