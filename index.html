@@ -25,9 +25,9 @@
             scroll-behavior: smooth;
         }
 
-        /* 导航栏 */
+        /* 导航栏 - 高度从 44px 缩小至 40px */
         nav {
-            position: fixed; top: 0; width: 100%; height: 44px;
+            position: fixed; top: 0; width: 100%; height: 40px;
             display: flex; justify-content: center; align-items: center;
             z-index: 1000; backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.8);
             border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -39,8 +39,8 @@
         section { padding: 120px 20px; display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden; }
         .section-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 
-        /* Hero */
-        .hero { text-align: center; padding-top: 180px; }
+        /* Hero - 顶部间距从 180px 缩小至 100px */
+        .hero { text-align: center; padding-top: 100px; }
         .hero h1 { font-size: 56px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 10px; }
         .hero p { font-size: 24px; color: var(--text-secondary); margin-bottom: 40px; }
 
@@ -56,7 +56,7 @@
         .badge-text strong { font-size: 13px; }
         .status-tag { font-size: 11px; color: var(--accent-blue); margin-top: 8px; font-weight: 500; }
 
-        /* Features Section 美化 */
+        /* Features Section */
         .features { background: var(--bg-light); flex-direction: row; justify-content: center; gap: 60px; }
         .features-visual { position: relative; width: 420px; height: 440px; }
         .screen-mockup { 
@@ -71,10 +71,10 @@
         .features-content li { margin-bottom: 24px; display: flex; align-items: flex-start; }
         .features-content li .dot { color: var(--accent-blue); font-weight: bold; width: 24px; flex-shrink: 0; font-size: 20px; line-height: 1.2; }
         .features-content li .text-wrap { display: flex; flex-direction: column; }
-        .features-content li strong { color: var(--text-main); font-size: 18px; margin-bottom: 4px; white-space: nowrap; } /* 确保标题不换行 */
+        .features-content li strong { color: var(--text-main); font-size: 18px; margin-bottom: 4px; white-space: nowrap; }
         .features-content li p { color: var(--text-secondary); font-size: 16px; margin: 0; line-height: 1.5; }
 
-        /* Pricing Section 美化 */
+        /* Pricing Section */
         .pricing-section h2 { font-size: 48px; margin-bottom: 60px; font-weight: 600; }
         .pricing-grid { display: flex; gap: 32px; max-width: 980px; width: 100%; z-index: 1; }
         .card { 
@@ -99,6 +99,7 @@
         .footer-links a { color: var(--accent-blue); text-decoration: none; margin-right: 32px; font-size: 13px; }
 
         @media (max-width: 834px) {
+            .hero { padding-top: 80px; } /* 移动端顶部间距优化 */
             .features { flex-direction: column; gap: 40px; padding: 80px 24px; }
             .features-visual { width: 100%; max-width: 340px; height: 380px; margin: 0 auto; }
             .screen-mockup.pc { width: 280px; height: 180px; left: 40px; }
