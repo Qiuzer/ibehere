@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ibehere Technology - 沟通，是每个人的权利</title>
+    <title>BeHere 在场 - 沟通，是每个人的权利</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,261 +12,149 @@
             --text-main: #1D1D1F;
             --text-secondary: #86868B;
             --accent-blue: #0071E3;
-            --card-glass: rgba(255, 255, 255, 0.8);
         }
 
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-
         body {
             font-family: 'Inter', 'SF Pro Display', 'PingFang SC', sans-serif;
             line-height: 1.5;
             color: var(--text-main);
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: var(--bg-white);
             scroll-behavior: smooth;
         }
 
-        /* 导航栏 - 极简透明 */
+        /* 导航栏 */
         nav {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.7);
+            position: fixed; top: 0; width: 100%; padding: 20px 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.7);
         }
-        nav .logo { font-weight: 600; font-size: 1.2rem; letter-spacing: -0.5px; }
-        nav .links a {
-            margin-left: 30px;
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 0.9rem;
-            transition: opacity 0.3s;
-        }
-        nav .links a:hover { opacity: 0.6; }
+        nav .logo { font-weight: 600; font-size: 1.2rem; color: var(--accent-blue); }
+        nav .links a { margin-left: 30px; text-decoration: none; color: var(--text-main); font-size: 0.9rem; }
 
-        /* 通用布局 */
-        section {
-            min-height: 100vh;
+        section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 20px; text-align: center; }
+
+        /* 下载按钮组 */
+        .download-badges {
             display: flex;
-            flex-direction: column;
+            gap: 15px;
+            margin-top: 40px;
             justify-content: center;
+            flex-wrap: wrap;
+        }
+        .badge {
+            width: 160px;
+            height: 50px;
+            background: #000;
+            border-radius: 8px;
+            display: flex;
             align-items: center;
-            padding: 80px 20px;
-            text-align: center;
-        }
-
-        /* 第一屏：Hero Section */
-        .hero { background: var(--bg-white); position: relative; }
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 600;
-            margin-bottom: 20px;
-            letter-spacing: -0.02em;
-        }
-        .hero p {
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin-bottom: 50px;
-        }
-        /* 占位图：3D Mockup */
-        .mockup-placeholder {
-            width: 280px;
-            height: 560px;
-            background: linear-gradient(145deg, #e6e6e6, #ffffff);
-            border-radius: 40px;
-            border: 8px solid #1d1d1f;
-            position: relative;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.1);
-        }
-        .mockup-placeholder::after {
-            content: "Waveform Animation Display";
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            color: #ccc; font-size: 0.8rem;
-        }
-        /* 侧边弱化文字 */
-        .side-values {
-            position: absolute;
-            left: 5%; top: 40%;
-            writing-mode: vertical-rl;
-            color: var(--text-secondary);
-            opacity: 0.3;
-            font-size: 0.8rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-        }
-
-        /* 第二屏：Feature Showcase */
-        .features { background: var(--bg-light); flex-direction: row; text-align: left; gap: 80px; }
-        .features-visual {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-            position: relative;
-        }
-        /* 占位图：跨屏连接感 */
-        .screen-mockup {
-            width: 200px; height: 400px; background: #ddd; border-radius: 20px; border: 4px solid #333;
-        }
-        .screen-mockup.pc {
-            width: 350px; height: 220px; margin-top: 100px; margin-left: -50px;
-        }
-        .connection-line {
-            position: absolute; top: 50%; left: 50%;
-            width: 100px; height: 2px;
-            background: var(--accent-blue);
-            box-shadow: 0 0 15px var(--accent-blue);
-            z-index: 10;
-        }
-
-        .features-content { flex: 1; max-width: 500px; }
-        .features-content h2 { font-size: 2.5rem; margin-bottom: 24px; }
-        .features-content ul { list-style: none; padding: 0; }
-        .features-content li {
-            margin-bottom: 20px;
-            padding-left: 30px;
-            position: relative;
-            color: var(--text-secondary);
-        }
-        .features-content li::before {
-            content: "✓"; position: absolute; left: 0; color: var(--accent-blue); font-weight: bold;
-        }
-
-        /* 第三屏：Pricing */
-        .pricing { background: var(--bg-white); }
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            width: 100%;
-            max-width: 900px;
-            margin-top: 50px;
-        }
-        .card {
-            padding: 50px 40px;
-            border-radius: 24px;
-            background: var(--bg-light);
-            transition: transform 0.3s;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        .card:hover { transform: translateY(-10px); }
-        .card.pro { background: var(--text-main); color: var(--bg-white); }
-        .card h3 { font-size: 1.5rem; margin-bottom: 10px; }
-        .card .price { font-size: 1.1rem; opacity: 0.7; margin-bottom: 30px; }
-        .card ul { list-style: none; padding: 0; flex-grow: 1; text-align: left; }
-        .card li { margin-bottom: 15px; opacity: 0.8; font-size: 0.95rem; }
-        
-        .btn {
-            padding: 16px 30px;
-            border-radius: 12px;
+            padding: 0 15px;
+            color: white;
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: inline-block;
+            transition: transform 0.2s;
+            opacity: 0.8; /* 占位状态稍微淡化 */
+            cursor: default;
         }
+        .badge:hover { transform: translateY(-2px); }
+        .badge-text { text-align: left; margin-left: 10px; }
+        .badge-text span { display: block; font-size: 0.6rem; }
+        .badge-text strong { font-size: 0.9rem; }
+        .coming-soon {
+            font-size: 12px;
+            color: var(--accent-blue);
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        /* 第一屏 */
+        .hero { background: var(--bg-white); position: relative; }
+        .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 600; margin-bottom: 20px; }
+        .hero p { font-size: 1.4rem; color: var(--text-secondary); max-width: 700px; margin-bottom: 30px; }
+        .mockup-placeholder { width: 260px; height: 520px; background: #f2f2f2; border-radius: 40px; border: 8px solid #1d1d1f; margin-top: 40px; }
+
+        /* 定价卡片 */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; width: 100%; max-width: 900px; margin-top: 50px; }
+        .card { padding: 40px; border-radius: 24px; background: var(--bg-light); display: flex; flex-direction: column; text-align: left; }
+        .card.pro { background: var(--text-main); color: var(--bg-white); }
+        .btn { padding: 16px 20px; border-radius: 12px; text-decoration: none; font-weight: 600; text-align: center; margin-top: 20px; }
         .btn-blue { background: var(--accent-blue); color: white; }
-        .btn-outline { border: 1px solid var(--bg-white); color: var(--bg-white); }
 
-        .reassurance { margin-top: 40px; color: var(--text-secondary); font-size: 0.9rem; }
-
-        /* 底部 */
         footer { padding: 60px 20px; border-top: 1px solid #eee; font-size: 0.8rem; color: #999; text-align: center; }
 
-        /* 移动端适配 */
-        @media (max-width: 768px) {
-            .features { flex-direction: column; text-align: center; }
-            .features-visual { justify-content: center; transform: scale(0.8); }
-            .hero h1 { font-size: 2rem; }
-            nav { padding: 15px 20px; }
-            .links { display: none; } /* 移动端简化导航 */
-        }
+        @media (max-width: 768px) { .links { display: none; } }
     </style>
 </head>
 <body>
 
 <nav>
-    <div class="logo">Ibehere</div>
+    <div class="logo">BeHere 在场</div>
     <div class="links">
         <a href="#hero">理念</a>
         <a href="#features">功能</a>
         <a href="#pricing">方案</a>
-        <a href="#contact">联系</a>
     </div>
 </nav>
 
 <section class="hero" id="hero">
-    <div class="side-values">Protect Expression &nbsp; / &nbsp; Respect Distance</div>
     <h1>沟通，是每个人的权利</h1>
-    <p>一款跨屏实时语音转写与对话工具</p>
-    <div class="mockup-placeholder"></div>
-    <div style="margin-top: 40px; opacity: 0.4; font-size: 0.8rem;">
-        ↓ 左右滑动 了解功能 (Scroll to explore)
+    <p>为听障用户而生，让交流更有温度。</p>
+    
+    <div class="download-badges">
+        <div>
+            <div class="badge">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.1 2.48-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.2 17.08 2.89 12.58 4.63 9.51c.87-1.53 2.43-2.5 4.13-2.53 1.29-.02 2.51.89 3.31.89.79 0 2.25-1.1 3.77-.94 1.27.05 2.42.51 3.21 1.39-3.05 1.81-2.56 5.86.5 7.18-.57 1.44-1.34 2.86-2.34 4.17zM12.98 6.03c-.08-2.12 1.63-3.89 3.39-4.03.11 2.26-1.88 4.11-3.39 4.03z"/></svg>
+                <div class="badge-text">
+                    <span>Download on the</span>
+                    <strong>App Store</strong>
+                </div>
+            </div>
+            <div class="coming-soon">iOS 版本开发中</div>
+        </div>
+        <div>
+            <div class="badge">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M3.609 1.814L13.792 12 3.609 22.186c-.18.18-.285.429-.285.69 0 .541.439.98.98.98.261 0 .51-.105.69-.285l10.873-10.873c.383-.383.383-1.003 0-1.386L5.012.441c-.18-.18-.429-.285-.69-.285-.541 0-.98.439-.98.98 0 .261.105.51.285.69z"/></svg>
+                <div class="badge-text">
+                    <span>GET IT ON</span>
+                    <strong>Google Play</strong>
+                </div>
+            </div>
+            <div class="coming-soon">Android 版本开发中</div>
+        </div>
     </div>
-</section>
 
-<section class="features" id="features">
-    <div class="features-visual">
-        <div class="screen-mockup"></div>
-        <div class="connection-line"></div>
-        <div class="screen-mockup pc"></div>
-    </div>
-    <div class="features-content">
-        <h2>无需加好友<br>跨屏即刻互动</h2>
-        <ul>
-            <li><strong>多屏互动：</strong> 对方无需安装 App，扫码即看</li>
-            <li><strong>自由视角：</strong> 1x1 / 2x2 / 3x3 自动与滑动切换</li>
-            <li><strong>纯净社交：</strong> 无需递手机，尊重社交距离</li>
-            <li><strong>隐私保护：</strong> 基础权益永久享有，不强制绑定</li>
-        </ul>
-    </div>
+    <div class="mockup-placeholder"></div>
 </section>
 
 <section class="pricing" id="pricing">
-    <div class="container">
-        <h2>选择适合您的方案</h2>
-        <div class="pricing-grid">
-            <div class="card">
-                <h3>基础版</h3>
-                <div class="price">永久免费</div>
-                <ul>
-                    <li>实时语音转文字 (单次5min)</li>
-                    <li>全模式阅读切换能力</li>
-                    <li>多屏互动听写模式</li>
-                    <li>最近 7 天历史记录保存</li>
-                </ul>
-                <a href="#" class="btn btn-blue" style="background: #eef2f7; color: #333;">立即开始使用</a>
-            </div>
-            <div class="card pro">
-                <h3>专业版</h3>
-                <div class="price">为高频使用者设计</div>
-                <ul>
-                    <li>无限单次识别时长</li>
-                    <li>永久历史记录保存</li>
-                    <li>更丰富的排版自定义</li>
-                    <li>优先识别引擎与稳定性优化</li>
-                    <li>全平台通用权益</li>
-                </ul>
-                <a href="#" class="btn btn-blue">立即开启专业体验</a>
-            </div>
+    <h2>BeHere 方案选择</h2>
+    <div class="pricing-grid">
+        <div class="card">
+            <h3>基础版</h3>
+            <div class="price">永久免费</div>
+            <ul>
+                <li>实时语音转文字 (单次5min)</li>
+                <li>全模式阅读切换能力</li>
+                <li>7 天历史记录保存</li>
+            </ul>
+            <a href="#" class="btn" style="background: #eee; color: #666; cursor: not-allowed;">敬请期待</a>
         </div>
-        <p class="reassurance">“ 您无限享有基础版全部权益，建立安全沟通锚点 ”</p>
+        <div class="card pro">
+            <h3>专业版</h3>
+            <div class="price">高效沟通首选</div>
+            <ul>
+                <li>无限单次识别时长</li>
+                <li>永久历史记录云端保存</li>
+                <li>深度优化的识别引擎</li>
+            </ul>
+            <a href="#" class="btn btn-blue">了解更多</a>
+        </div>
     </div>
 </section>
 
-<footer id="contact">
-    <p>Email: admin@ibehere.xyz | 2026 Ibehere Technology. All Rights Reserved.</p>
-    <p style="margin-top: 10px;">
-        <a href="#" style="color: #999; text-decoration: none;">隐私政策</a> | 
-        <a href="#" style="color: #999; text-decoration: none;">关于我们</a>
-    </p>
+<footer>
+    <p>Email: contact@ibehere.xyz | © 2026 Synx Tech (Beijing) Co., Ltd. All Rights Reserved.</p>
 </footer>
 
 </body>
