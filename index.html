@@ -8,16 +8,17 @@
     <style>
         :root {
             --bg-white: #FFFFFF;
-            --bg-light: #F9F9F9;
+            --bg-light: #FBFBFD;
             --text-main: #1D1D1F;
-            --text-secondary: #86868B;
-            --accent-blue: #0071E3;
+            --text-secondary: #6E6E73;
+            --accent-blue: #0066CC;
+            --card-radius: 20px;
         }
 
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         body {
             font-family: 'Inter', 'SF Pro Display', 'PingFang SC', sans-serif;
-            line-height: 1.5;
+            line-height: 1.45;
             color: var(--text-main);
             margin: 0; padding: 0;
             background-color: var(--bg-white);
@@ -26,135 +27,178 @@
 
         /* 导航栏 */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 20px 40px;
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000; backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.7);
+            position: fixed; top: 0; width: 100%; height: 44px;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
-        nav .logo { font-weight: 600; font-size: 1.2rem; color: var(--accent-blue); }
-        nav .links a { margin-left: 30px; text-decoration: none; color: var(--text-main); font-size: 0.9rem; }
+        nav .nav-content { width: 100%; max-width: 980px; display: flex; justify-content: space-between; padding: 0 20px; }
+        nav .logo { font-weight: 600; font-size: 17px; color: var(--text-main); text-decoration: none; }
+        nav .links a { margin-left: 24px; text-decoration: none; color: var(--text-main); font-size: 12px; opacity: 0.8; }
 
-        section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 20px; text-align: center; }
+        section { padding: 100px 20px; display: flex; flex-direction: column; align-items: center; }
 
-        /* 下载按钮组 */
-        .download-badges {
-            display: flex;
-            gap: 15px;
-            margin-top: 40px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+        /* Hero 屏 */
+        .hero { text-align: center; background: var(--bg-white); padding-top: 150px; }
+        .hero h1 { font-size: 56px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 10px; }
+        .hero p { font-size: 24px; color: var(--text-secondary); font-weight: 400; margin-bottom: 40px; }
+
+        /* 下载占位按钮 */
+        .download-badges { display: flex; gap: 15px; margin-bottom: 60px; }
         .badge {
-            width: 160px;
-            height: 50px;
-            background: #000;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-            color: white;
-            text-decoration: none;
-            transition: transform 0.2s;
-            opacity: 0.8; /* 占位状态稍微淡化 */
-            cursor: default;
+            width: 140px; height: 44px; background: #000; border-radius: 6px;
+            display: flex; align-items: center; padding: 0 12px; color: white; text-decoration: none;
         }
-        .badge:hover { transform: translateY(-2px); }
-        .badge-text { text-align: left; margin-left: 10px; }
-        .badge-text span { display: block; font-size: 0.6rem; }
-        .badge-text strong { font-size: 0.9rem; }
-        .coming-soon {
-            font-size: 12px;
-            color: var(--accent-blue);
-            margin-top: 8px;
-            font-weight: 600;
+        .badge-text { text-align: left; margin-left: 8px; line-height: 1.2; }
+        .badge-text span { display: block; font-size: 9px; }
+        .badge-text strong { font-size: 13px; }
+        .status-tag { font-size: 11px; color: var(--accent-blue); margin-top: 6px; font-weight: 500; }
+
+        /* 功能特性展示 (Apple Grid Style) */
+        .features { 
+            background: var(--bg-light); 
+            flex-direction: row; 
+            justify-content: center; 
+            gap: 100px; 
+            max-width: 100%;
+        }
+        .features-visual { position: relative; width: 400px; height: 450px; }
+        .screen-mockup { 
+            width: 200px; height: 400px; background: #fff; border-radius: 30px; 
+            border: 6px solid #000; position: absolute; left: 0; top: 0; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .screen-mockup.pc { 
+            width: 320px; height: 200px; border-radius: 12px; top: 120px; left: 100px; z-index: 2;
+        }
+        .connection-line {
+            position: absolute; width: 80px; height: 2px; background: var(--accent-blue);
+            top: 220px; left: 180px; z-index: 3; box-shadow: 0 0 10px rgba(0,102,204,0.5);
         }
 
-        /* 第一屏 */
-        .hero { background: var(--bg-white); position: relative; }
-        .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 600; margin-bottom: 20px; }
-        .hero p { font-size: 1.4rem; color: var(--text-secondary); max-width: 700px; margin-bottom: 30px; }
-        .mockup-placeholder { width: 260px; height: 520px; background: #f2f2f2; border-radius: 40px; border: 8px solid #1d1d1f; margin-top: 40px; }
+        .features-content { max-width: 420px; text-align: left; }
+        .features-content h2 { font-size: 40px; line-height: 1.1; margin-bottom: 20px; }
+        .features-content ul { list-style: none; padding: 0; margin-top: 30px; }
+        .features-content li { margin-bottom: 18px; font-size: 17px; color: var(--text-secondary); display: flex; align-items: flex-start; }
+        .features-content li::before { content: "•"; color: var(--accent-blue); font-weight: bold; width: 20px; flex-shrink: 0; }
 
-        /* 定价卡片 */
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; width: 100%; max-width: 900px; margin-top: 50px; }
-        .card { padding: 40px; border-radius: 24px; background: var(--bg-light); display: flex; flex-direction: column; text-align: left; }
-        .card.pro { background: var(--text-main); color: var(--bg-white); }
-        .btn { padding: 16px 20px; border-radius: 12px; text-decoration: none; font-weight: 600; text-align: center; margin-top: 20px; }
-        .btn-blue { background: var(--accent-blue); color: white; }
+        /* 方案选择部分 */
+        .pricing-section { background: var(--bg-white); }
+        .pricing-section h2 { font-size: 48px; margin-bottom: 50px; }
+        .pricing-grid { display: flex; gap: 30px; max-width: 980px; width: 100%; }
+        .card { 
+            flex: 1; padding: 40px; border-radius: var(--card-radius); 
+            background: var(--bg-light); border: 1px solid rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+        }
+        .card:hover { background: #fff; box-shadow: 0 20px 40px rgba(0,0,0,0.04); }
+        .card h3 { font-size: 24px; margin-bottom: 8px; }
+        .card .price-info { font-size: 17px; color: var(--text-secondary); margin-bottom: 30px; }
+        .card ul { list-style: none; padding: 0; border-top: 1px solid #e5e5e5; padding-top: 25px; }
+        .card li { margin-bottom: 15px; font-size: 15px; color: var(--text-main); }
+        .card.pro { background: #f5f5f7; border: 1px solid rgba(0,102,204,0.1); }
+        .card.pro h3 { color: var(--accent-blue); }
 
-        footer { padding: 60px 20px; border-top: 1px solid #eee; font-size: 0.8rem; color: #999; text-align: center; }
-
-        @media (max-width: 768px) { .links { display: none; } }
+        /* 页脚 */
+        footer { background: var(--bg-light); padding: 50px 20px; color: var(--text-secondary); font-size: 12px; line-height: 1.6; }
+        .footer-content { max-width: 980px; margin: 0 auto; text-align: left; border-top: 1px solid #d2d2d7; padding-top: 20px; }
+        
+        @media (max-width: 834px) {
+            .features { flex-direction: column; align-items: center; gap: 40px; }
+            .features-content { text-align: center; }
+            .pricing-grid { flex-direction: column; }
+            .hero h1 { font-size: 40px; }
+        }
     </style>
 </head>
 <body>
 
 <nav>
-    <div class="logo">BeHere 在场</div>
-    <div class="links">
-        <a href="#hero">理念</a>
-        <a href="#features">功能</a>
-        <a href="#pricing">方案</a>
+    <div class="nav-content">
+        <a href="#" class="logo">BeHere 在场</a>
+        <div class="links">
+            <a href="#features">特性</a>
+            <a href="#pricing">订阅</a>
+            <a href="mailto:contact@ibehere.xyz">联系</a>
+        </div>
     </div>
 </nav>
 
 <section class="hero" id="hero">
     <h1>沟通，是每个人的权利</h1>
-    <p>为听障用户而生，让交流更有温度。</p>
+    <p>跨屏实时语音转写，让交流更有温度。</p>
     
     <div class="download-badges">
-        <div>
-            <div class="badge">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.1 2.48-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.2 17.08 2.89 12.58 4.63 9.51c.87-1.53 2.43-2.5 4.13-2.53 1.29-.02 2.51.89 3.31.89.79 0 2.25-1.1 3.77-.94 1.27.05 2.42.51 3.21 1.39-3.05 1.81-2.56 5.86.5 7.18-.57 1.44-1.34 2.86-2.34 4.17zM12.98 6.03c-.08-2.12 1.63-3.89 3.39-4.03.11 2.26-1.88 4.11-3.39 4.03z"/></svg>
-                <div class="badge-text">
-                    <span>Download on the</span>
-                    <strong>App Store</strong>
-                </div>
-            </div>
-            <div class="coming-soon">iOS 版本开发中</div>
+        <div style="text-align:center">
+            <a href="#" class="badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.1 2.48-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.2 17.08 2.89 12.58 4.63 9.51c.87-1.53 2.43-2.5 4.13-2.53 1.29-.02 2.51.89 3.31.89.79 0 2.25-1.1 3.77-.94 1.27.05 2.42.51 3.21 1.39-3.05 1.81-2.56 5.86.5 7.18-.57 1.44-1.34 2.86-2.34 4.17zM12.98 6.03c-.08-2.12 1.63-3.89 3.39-4.03.11 2.26-1.88 4.11-3.39 4.03z"/></svg>
+                <div class="badge-text"><span>Download on the</span><strong>App Store</strong></div>
+            </a>
+            <div class="status-tag">iOS 版即将到来</div>
         </div>
-        <div>
-            <div class="badge">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M3.609 1.814L13.792 12 3.609 22.186c-.18.18-.285.429-.285.69 0 .541.439.98.98.98.261 0 .51-.105.69-.285l10.873-10.873c.383-.383.383-1.003 0-1.386L5.012.441c-.18-.18-.429-.285-.69-.285-.541 0-.98.439-.98.98 0 .261.105.51.285.69z"/></svg>
-                <div class="badge-text">
-                    <span>GET IT ON</span>
-                    <strong>Google Play</strong>
-                </div>
-            </div>
-            <div class="coming-soon">Android 版本开发中</div>
+        <div style="text-align:center">
+            <a href="#" class="badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M3.609 1.814L13.792 12 3.609 22.186c-.18.18-.285.429-.285.69 0 .541.439.98.98.98.261 0 .51-.105.69-.285l10.873-10.873c.383-.383.383-1.003 0-1.386L5.012.441c-.18-.18-.429-.285-.69-.285-.541 0-.98.439-.98.98 0 .261.105.51.285.69z"/></svg>
+                <div class="badge-text"><span>GET IT ON</span><strong>Google Play</strong></div>
+            </a>
+            <div class="status-tag">Android 版正在准备</div>
         </div>
     </div>
-
-    <div class="mockup-placeholder"></div>
 </section>
 
-<section class="pricing" id="pricing">
-    <h2>BeHere 方案选择</h2>
+<section class="features" id="features">
+    <div class="features-visual">
+        <div class="screen-mockup"></div>
+        <div class="connection-line"></div>
+        <div class="screen-mockup pc"></div>
+    </div>
+    <div class="features-content">
+        <h2>无需加好友<br>跨屏即刻互动</h2>
+        <p style="color:var(--text-secondary); font-size: 19px; margin-top: 20px;">专为听障用户优化，让声音不仅能被听见，更能被清晰地看见。</p>
+        <ul>
+            <li><strong>多屏互动：</strong> 对方只需扫码，即可在自己的屏幕实时阅读，无需添加好友。</li>
+            <li><strong>无障碍阅读：</strong> 支持 1x1 / 2x2 / 3x3 自由排版，满足不同视认距离需求。</li>
+            <li><strong>尊重社交距离：</strong> 无需递出手机，让每一次交流都保留尊严。</li>
+            <li><strong>隐私保护：</strong> 核心功能无需账号绑定，您的表达权由您掌控。</li>
+        </ul>
+    </div>
+</section>
+
+<section class="pricing-section" id="pricing">
+    <h2>找到适合您的在场方式</h2>
     <div class="pricing-grid">
         <div class="card">
             <h3>基础版</h3>
-            <div class="price">永久免费</div>
+            <p class="price-info">满足日常沟通所需，永久提供。</p>
             <ul>
-                <li>实时语音转文字 (单次5min)</li>
+                <li>实时语音转文字 (单次 5 分钟)</li>
                 <li>全模式阅读切换能力</li>
-                <li>7 天历史记录保存</li>
+                <li>多屏互动听写模式</li>
+                <li>最近 7 天历史记录保存</li>
             </ul>
-            <a href="#" class="btn" style="background: #eee; color: #666; cursor: not-allowed;">敬请期待</a>
         </div>
         <div class="card pro">
             <h3>专业版</h3>
-            <div class="price">高效沟通首选</div>
+            <p class="price-info">为高频交流与工作学习提供更强能力。</p>
             <ul>
-                <li>无限单次识别时长</li>
-                <li>永久历史记录云端保存</li>
-                <li>深度优化的识别引擎</li>
+                <li>无限单次转写时长</li>
+                <li>永久云端历史记录存储</li>
+                <li>深度优化的识别稳定性</li>
+                <li>优先响应的技术支持</li>
+                <li>更多排版自定义权益</li>
             </ul>
-            <a href="#" class="btn btn-blue">了解更多</a>
         </div>
     </div>
+    <p style="margin-top: 40px; color: var(--text-secondary); font-size: 14px;">* 订阅与管理均在 BeHere App 内完成</p>
 </section>
 
 <footer>
-    <p>Email: contact@ibehere.xyz | © 2026 Synx Tech (Beijing) Co., Ltd. All Rights Reserved.</p>
+    <div class="footer-content">
+        <p>Email: contact@ibehere.xyz</p>
+        <p>© 2026 Synx Tech (Beijing) Co., Ltd. All Rights Reserved.</p>
+        <p style="margin-top: 15px; font-size: 11px; opacity: 0.6;">
+            本网站所提及的“BeHere”及“在场”为 Synx Tech 旗下产品。部分功能在不同设备上可能存在差异，详情请参考应用内说明。
+        </p>
+    </div>
 </footer>
 
 </body>
