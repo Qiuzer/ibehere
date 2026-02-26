@@ -23,6 +23,18 @@
             margin: 0; padding: 0;
             background-color: var(--bg-white);
             scroll-behavior: smooth;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 背景装饰线 */
+        .bg-decoration {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.4;
         }
 
         /* 导航栏 */
@@ -36,10 +48,10 @@
         nav .logo { font-weight: 600; font-size: 17px; color: var(--text-main); text-decoration: none; }
         nav .links a { margin-left: 24px; text-decoration: none; color: var(--text-main); font-size: 12px; opacity: 0.8; }
 
-        section { padding: 100px 20px; display: flex; flex-direction: column; align-items: center; }
+        section { padding: 100px 20px; display: flex; flex-direction: column; align-items: center; position: relative; }
 
         /* Hero 屏 */
-        .hero { text-align: center; background: var(--bg-white); padding-top: 150px; }
+        .hero { text-align: center; background: transparent; padding-top: 150px; }
         .hero h1 { font-size: 56px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 10px; }
         .hero p { font-size: 24px; color: var(--text-secondary); font-weight: 400; margin-bottom: 40px; }
 
@@ -54,9 +66,9 @@
         .badge-text strong { font-size: 13px; }
         .status-tag { font-size: 11px; color: var(--accent-blue); margin-top: 6px; font-weight: 500; }
 
-        /* 功能特性展示 (Apple Grid Style) */
+        /* 功能特性展示 */
         .features { 
-            background: var(--bg-light); 
+            background: rgba(251, 251, 253, 0.7); 
             flex-direction: row; 
             justify-content: center; 
             gap: 100px; 
@@ -82,12 +94,12 @@
         .features-content li::before { content: "•"; color: var(--accent-blue); font-weight: bold; width: 20px; flex-shrink: 0; }
 
         /* 方案选择部分 */
-        .pricing-section { background: var(--bg-white); }
+        .pricing-section { background: transparent; }
         .pricing-section h2 { font-size: 48px; margin-bottom: 50px; }
         .pricing-grid { display: flex; gap: 30px; max-width: 980px; width: 100%; }
         .card { 
             flex: 1; padding: 40px; border-radius: var(--card-radius); 
-            background: var(--bg-light); border: 1px solid rgba(0,0,0,0.02);
+            background: rgba(245, 245, 247, 0.8); border: 1px solid rgba(0,0,0,0.02);
             transition: all 0.3s ease;
         }
         .card:hover { background: #fff; box-shadow: 0 20px 40px rgba(0,0,0,0.04); }
@@ -98,9 +110,20 @@
         .card.pro { background: #f5f5f7; border: 1px solid rgba(0,102,204,0.1); }
         .card.pro h3 { color: var(--accent-blue); }
 
+        /* 苹果审核专用说明块 */
+        .subscription-terms {
+            max-width: 800px; margin-top: 40px; padding: 20px;
+            background: #f9f9f9; border-radius: 12px; font-size: 12px;
+            color: #86868b; line-height: 1.6; text-align: left;
+        }
+        .subscription-terms strong { color: #1d1d1f; }
+
         /* 页脚 */
         footer { background: var(--bg-light); padding: 50px 20px; color: var(--text-secondary); font-size: 12px; line-height: 1.6; }
         .footer-content { max-width: 980px; margin: 0 auto; text-align: left; border-top: 1px solid #d2d2d7; padding-top: 20px; }
+        .footer-links { margin-bottom: 20px; display: flex; gap: 20px; }
+        .footer-links a { color: var(--accent-blue); text-decoration: none; }
+        .footer-links a:hover { text-decoration: underline; }
         
         @media (max-width: 834px) {
             .features { flex-direction: column; align-items: center; gap: 40px; }
@@ -112,13 +135,19 @@
 </head>
 <body>
 
+<svg class="bg-decoration" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+    <path d="M-100,200 Q150,50 400,300 T900,100" fill="none" stroke="#0066CC" stroke-width="0.5" />
+    <circle cx="800" cy="200" r="150" fill="none" stroke="#0066CC" stroke-width="0.2" />
+    <path d="M1100,800 Q800,950 500,700 T-100,900" fill="none" stroke="#0066CC" stroke-width="0.5" />
+</svg>
+
 <nav>
     <div class="nav-content">
         <a href="#" class="logo">BeHere 在场</a>
         <div class="links">
             <a href="#features">特性</a>
             <a href="#pricing">订阅</a>
-            <a href="mailto:contact@ibehere.xyz">联系</a>
+            <a href="#legal">法律</a>
         </div>
     </div>
 </nav>
@@ -155,48 +184,58 @@
         <h2>无需加好友<br>跨屏即刻互动</h2>
         <p style="color:var(--text-secondary); font-size: 19px; margin-top: 20px;">专为听障用户优化，让声音不仅能被听见，更能被清晰地看见。</p>
         <ul>
-            <li><strong>多屏互动：</strong> 对方只需扫码，即可在自己的屏幕实时阅读，无需添加好友。</li>
-            <li><strong>无障碍阅读：</strong> 支持 1x1 / 2x2 / 3x3 自由排版，满足不同视认距离需求。</li>
-            <li><strong>尊重社交距离：</strong> 无需递出手机，让每一次交流都保留尊严。</li>
-            <li><strong>隐私保护：</strong> 核心功能无需账号绑定，您的表达权由您掌控。</li>
+            <li><strong>多屏互动：</strong> 对方只需扫码，即可在自己的屏幕实时阅读。</li>
+            <li><strong>无障碍阅读：</strong> 支持多种文字排版比例，适应不同视觉需求。</li>
+            <li><strong>隐私保护：</strong> 无需账号，数据本地处理，交流无负担。</li>
         </ul>
     </div>
 </section>
 
 <section class="pricing-section" id="pricing">
-    <h2>找到适合您的在场方式</h2>
+    <h2>订阅方案</h2>
     <div class="pricing-grid">
         <div class="card">
             <h3>基础版</h3>
-            <p class="price-info">满足日常沟通所需，永久提供。</p>
+            <p class="price-info">免费使用</p>
             <ul>
                 <li>实时语音转文字 (单次 5 分钟)</li>
                 <li>全模式阅读切换能力</li>
-                <li>多屏互动听写模式</li>
-                <li>最近 7 天历史记录保存</li>
+                <li>最近 7 天历史记录</li>
             </ul>
         </div>
         <div class="card pro">
             <h3>专业版</h3>
-            <p class="price-info">为高频交流与工作学习提供更强能力。</p>
+            <p class="price-info">¥12.00 / 月 (首月优惠)</p>
             <ul>
                 <li>无限单次转写时长</li>
-                <li>永久云端历史记录存储</li>
-                <li>深度优化的识别稳定性</li>
-                <li>优先响应的技术支持</li>
-                <li>更多排版自定义权益</li>
+                <li>永久云端存储与导出</li>
+                <li>高级识别引擎优先通道</li>
+                <li>自定义个性化排版</li>
             </ul>
         </div>
     </div>
-    <p style="margin-top: 40px; color: var(--text-secondary); font-size: 14px;">* 订阅与管理均在 BeHere App 内完成</p>
+
+    <div class="subscription-terms">
+        <p><strong>关于自动续费订阅服务：</strong></p>
+        1. 订阅服务：BeHere 专业版月度会员（1个月）。<br>
+        2. 订阅价格：以 iAP 申请信息为准，例如连续包月产品为 12元/月。<br>
+        3. 付款：用户确认购买并付款后计入 iTunes 账户。<br>
+        4. 续订：苹果 iTunes 账户会在到期前 24 小时内扣费，扣费成功后订阅周期顺延一个订阅周期。<br>
+        5. 取消续订：如需取消续订，请在当前订阅周期到期前 24 小时以前，手动在 iOS “设置” —> 点击 “Apple ID” —> 进入“订阅”页面取消订阅。
+    </div>
 </section>
 
-<footer>
+<footer id="legal">
     <div class="footer-content">
-        <p>Email: contact@ibehere.xyz</p>
+        <div class="footer-links">
+            <a href="javascript:void(0)">隐私政策</a>
+            <a href="javascript:void(0)">用户协议 (EULA)</a>
+            <a href="javascript:void(0)">自动续费协议</a>
+            <a href="mailto:contact@ibehere.xyz">联系我们</a>
+        </div>
         <p>© 2026 Synx Tech (Beijing) Co., Ltd. All Rights Reserved.</p>
         <p style="margin-top: 15px; font-size: 11px; opacity: 0.6;">
-            本网站所提及的“BeHere”及“在场”为 Synx Tech 旗下产品。部分功能在不同设备上可能存在差异，详情请参考应用内说明。
+            本网站所提及的“BeHere”及“在场”为 Synx Tech 旗下产品。订阅管理、取消及退款需通过 Apple ID 设置进行。
         </p>
     </div>
 </footer>
