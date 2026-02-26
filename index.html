@@ -1,220 +1,255 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>在场（BeHere）隐私政策</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeHere 在场 - 沟通，是每个人的权利</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-white: #FFFFFF;
+            --bg-light: #FBFBFD;
+            --text-main: #1D1D1F;
+            --text-secondary: #6E6E73;
+            --accent-blue: #0066CC;
+            --card-radius: 20px;
+        }
 
-<style>
-body {
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-                 "Helvetica Neue", Arial, sans-serif;
-    background-color: #ffffff;
-    color: #111111;
-    line-height: 1.75;
-}
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: 'Inter', 'SF Pro Display', 'PingFang SC', sans-serif;
+            line-height: 1.45;
+            color: var(--text-main);
+            margin: 0; padding: 0;
+            background-color: var(--bg-white);
+            scroll-behavior: smooth;
+        }
 
-.container {
-    max-width: 860px;
-    margin: 80px auto;
-    padding: 0 24px;
-}
+        nav {
+            position: fixed; top: 0; width: 100%; height: 40px;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        nav .nav-content { width: 100%; max-width: 980px; display: flex; justify-content: space-between; padding: 0 20px; }
+        nav .logo { font-weight: 600; font-size: 17px; color: var(--text-main); text-decoration: none; }
+        nav .links a { margin-left: 24px; text-decoration: none; color: var(--text-main); font-size: 12px; opacity: 0.8; }
 
-h1 {
-    font-size: 32px;
-    margin-bottom: 12px;
-}
+        section { padding: 80px 20px; display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden; }
+        .section-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 
-.date {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 40px;
-}
+        .hero { text-align: center; padding-top: 100px; padding-bottom: 60px; }
+        .hero h1 { font-size: 56px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 12px; }
+        .hero p { font-size: 24px; color: var(--text-secondary); margin-bottom: 60px; }
 
-h2 {
-    font-size: 20px;
-    margin-top: 48px;
-}
+        /* 手机模型样式 */
+        .phone-mockup {
+            width: 200px; height: 400px; 
+            background: #fff; border: 6px solid #1d1d1f; 
+            border-radius: 32px; margin: 0 auto 50px; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+        }
 
-p {
-    margin: 16px 0;
-}
+        .download-badges { display: flex; gap: 20px; justify-content: center; margin-top: 20px; }
+        .badge {
+            width: 135px; height: 40px; background: #000; border-radius: 8px;
+            display: flex; align-items: center; padding: 0 10px; color: white; text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .badge:hover { transform: scale(1.02); }
+        .badge-text { text-align: left; margin-left: 8px; line-height: 1.2; }
+        .badge-text span { display: block; font-size: 8px; opacity: 0.7; }
+        .badge-text strong { font-size: 12px; }
+        .status-tag { font-size: 11px; color: var(--accent-blue); margin-top: 10px; font-weight: 500; }
 
-ul {
-    margin: 12px 0 12px 20px;
-}
+        /* Features Section */
+        .features { background: var(--bg-light); flex-direction: row; justify-content: center; gap: 60px; padding: 120px 20px; }
+        .features-visual { position: relative; width: 420px; height: 440px; }
+        .screen-mockup { 
+            width: 200px; height: 400px; background: #fff; border-radius: 30px; 
+            border: 6px solid #000; position: absolute; left: 0; top: 0; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .screen-mockup.pc { width: 340px; height: 210px; border-radius: 12px; top: 110px; left: 100px; z-index: 2; border: 4px solid #1d1d1f; }
+        
+        .features-content { max-width: 480px; text-align: left; z-index: 1; }
+        .features-content h2 { font-size: 44px; line-height: 1.1; margin-bottom: 24px; font-weight: 600; }
+        .features-content ul { list-style: none; padding: 0; margin: 0; }
+        .features-content li { margin-bottom: 24px; display: flex; align-items: flex-start; }
+        .features-content li .dot { color: var(--accent-blue); font-weight: bold; width: 24px; flex-shrink: 0; font-size: 20px; line-height: 1.2; }
+        .features-content li .text-wrap { display: flex; flex-direction: column; }
+        .features-content li strong { color: var(--text-main); font-size: 18px; margin-bottom: 4px; white-space: nowrap; }
+        .features-content li p { color: var(--text-secondary); font-size: 16px; margin: 0; line-height: 1.5; }
 
-li {
-    margin: 6px 0;
-}
+        /* Pricing Section */
+        .pricing-section h2 { font-size: 48px; margin-bottom: 60px; font-weight: 600; }
+        .pricing-grid { display: flex; gap: 32px; max-width: 980px; width: 100%; z-index: 1; }
+        .card { 
+            flex: 1; padding: 48px; border-radius: var(--card-radius); 
+            background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.06);
+            backdrop-filter: blur(10px); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left; display: flex; flex-direction: column;
+        }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 30px 60px rgba(0,0,0,0.08); border-color: rgba(0,102,204,0.2); }
+        .card h3 { font-size: 28px; margin: 0 0 12px 0; }
+        .card .price-info { font-size: 20px; color: var(--text-secondary); margin-bottom: 32px; font-weight: 400; }
+        .card.pro .price-info { color: var(--accent-blue); font-weight: 600; }
+        .card ul { list-style: none; padding: 0; margin: 0; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 32px; }
+        .card li { margin-bottom: 16px; font-size: 16px; color: var(--text-secondary); display: flex; align-items: center; }
+        .card li::before { content: "•"; color: var(--accent-blue); margin-right: 12px; font-weight: bold; }
 
-footer {
-    margin-top: 80px;
-    padding-top: 24px;
-    border-top: 1px solid #eee;
-    font-size: 14px;
-    color: #666;
-}
-</style>
+        .subscription-terms { max-width: 980px; margin-top: 60px; padding: 24px; background: var(--bg-light); border-radius: 12px; font-size: 12px; color: #86868b; text-align: left; }
+
+        footer { background: var(--bg-light); padding: 80px 20px; }
+        .footer-content { max-width: 980px; margin: 0 auto; text-align: left; }
+        .footer-links { margin-bottom: 24px; }
+        .footer-links a { color: var(--accent-blue); text-decoration: none; margin-right: 32px; font-size: 13px; }
+
+        @media (max-width: 834px) {
+            .hero { padding-top: 80px; }
+            .hero h1 { font-size: 40px; }
+            .features { flex-direction: column; gap: 40px; padding: 80px 24px; }
+            .features-visual { width: 100%; max-width: 340px; height: 380px; margin: 0 auto; }
+            .screen-mockup.pc { width: 280px; height: 180px; left: 40px; }
+            .pricing-grid { flex-direction: column; }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="container">
+<nav>
+    <div class="nav-content">
+        <a href="#" class="logo">BeHere 在场</a>
+        <div class="links">
+            <a href="#features">特性</a>
+            <a href="#pricing">订阅</a>
+            <a href="#legal">条款</a>
+        </div>
+    </div>
+</nav>
 
-<h1>在场（BeHere）隐私政策</h1>
-<div class="date">Last Updated: 2026-02-26</div>
+<section class="hero" id="hero">
+    <div class="section-bg">
+        <svg width="100%" height="100%" viewBox="0 0 1000 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,200 Q250,120 500,200 T1000,200" fill="none" stroke="rgba(0,102,204,0.12)" stroke-width="2" />
+            <path d="M0,215 Q250,135 500,215 T1000,215" fill="none" stroke="rgba(0,102,204,0.06)" stroke-width="1" />
+        </svg>
+    </div>
+    <h1>沟通，是每个人的权利</h1>
+    <p>为听障用户而生，让交流更有温度</p>
+    
+    <div class="phone-mockup"></div>
 
-<p>
-在场（BeHere）是一款围绕“沟通参与权”设计的实时语音转写、
-对话辅助与阅读工具应用，旨在帮助不同年龄与能力的用户更平等地参与沟通与阅读。
-</p>
+    <div class="download-badges">
+        <div style="text-align:center">
+            <a href="#" class="badge">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.1 2.48-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.2 17.08 2.89 12.58 4.63 9.51c.87-1.53 2.43-2.5 4.13-2.53 1.29-.02 2.51.89 3.31.89.79 0 2.25-1.1 3.77-.94 1.27.05 2.42.51 3.21 1.39-3.05 1.81-2.56 5.86.5 7.18-.57 1.44-1.34 2.86-2.34 4.17zM12.98 6.03c-.08-2.12 1.63-3.89 3.39-4.03.11 2.26-1.88 4.11-3.39 4.03z"/></svg>
+                <div class="badge-text"><span>Download on the</span><strong>App Store</strong></div>
+            </a>
+            <div class="status-tag">iOS 版即将到来</div>
+        </div>
+        <div style="text-align:center">
+            <a href="#" class="badge">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                    <path d="M3.253 20.844c-.214.22-.34.522-.34.862 0 .093.01.185.03.273l9.462-9.462-9.152-9.152c-.104.148-.168.328-.168.525 0 .34.126.642.34.862l11.662 11.662-11.662 11.662zM17.347 1.325c-.21-.14-.46-.225-.73-.225-.21 0-.41.05-.58.14l-2.61 1.51 3.92 3.92 0-5.345zm.01 16.03l-3.93-3.93 2.62 1.51c.17.1.37.15.58.15.27 0 .52-.085.73-.225l0-5.345 0 7.84zm3.39-10.3l-2.73-1.58-.01 10.42 2.73-1.58c.47-.27.79-.78.79-1.37s-.32-1.1-.79-1.37z"/>
+                </svg>
+                <div class="badge-text"><span>GET IT ON</span><strong>Google Play</strong></div>
+            </a>
+            <div class="status-tag">Android 版正在准备</div>
+        </div>
+    </div>
+</section>
 
-<p>
-本应用由 <strong>Synx Tech (Beijing) Co., Ltd.</strong>
-（并肩人科技（北京）有限责任公司）开发与运营。
-</p>
+<section class="features" id="features">
+    <div class="section-bg">
+        <svg width="100%" height="100%" viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100,100 Q400,150 600,450 T900,500" fill="none" stroke="rgba(0,102,204,0.05)" stroke-width="1.5" />
+            <circle cx="100" cy="100" r="2" fill="rgba(0,102,204,0.1)" />
+            <circle cx="900" cy="500" r="2" fill="rgba(0,102,204,0.1)" />
+        </svg>
+    </div>
+    <div class="features-visual">
+        <div class="screen-mockup"></div>
+        <div class="screen-mockup pc"></div>
+    </div>
+    <div class="features-content">
+        <h2>无需加好友<br>跨屏即刻互动</h2>
+        <ul>
+            <li>
+                <span class="dot">•</span>
+                <div class="text-wrap">
+                    <strong>多屏互动：</strong>
+                    <p>对方只需扫码，即可在自己的屏幕实时阅读，沟通零距离。</p>
+                </div>
+            </li>
+            <li>
+                <span class="dot">•</span>
+                <div class="text-wrap">
+                    <strong>无障碍阅读：</strong>
+                    <p>支持 1×1 / 2×2 / 3×3 自由排版，适应不同视力需求与场景。</p>
+                </div>
+            </li>
+            <li>
+                <span class="dot">•</span>
+                <div class="text-wrap">
+                    <strong>尊重隐私：</strong>
+                    <p>核心功能无需账号绑定，不获取多余权限，保护您的每一句话。</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
 
-<p>
-如有隐私相关问题，请联系：support@behere.app
-</p>
-
-<h2>一、数据处理原则</h2>
-<ul>
-<li>当前版本不创建账户，不要求注册。</li>
-<li>不建立开发者服务器数据库。</li>
-<li>不进行广告追踪或跨应用追踪。</li>
-<li>不出售或共享用户数据。</li>
-<li>所有数据默认存储于用户设备本地。</li>
-</ul>
-
-<h2>二、语音数据处理</h2>
-<p>
-当用户使用实时语音转写功能时：
-</p>
-<ul>
-<li>语音仅用于即时识别处理。</li>
-<li>本应用不保存语音录音。</li>
-<li>不上传语音至开发者服务器。</li>
-<li>语音识别依赖 iOS 系统提供的官方框架能力。</li>
-</ul>
-
-<p>
-在部分情况下，语音识别可能由 Apple 系统服务完成，
-相关数据处理遵循 Apple 官方隐私政策。
-</p>
-
-<h2>三、本地智能处理（对话总结功能）</h2>
-<p>
-本应用使用 Apple 提供的设备端本地大模型能力（如 Apple Intelligence）
-对用户对话文本进行总结。
-</p>
-
-<ul>
-<li>所有模型推理均在用户设备本地完成。</li>
-<li>不会将对话文本发送至开发者服务器。</li>
-<li>不会用于模型训练。</li>
-<li>不会用于广告、画像或行为分析。</li>
-</ul>
-
-<p>
-总结结果默认存储于用户设备本地，由用户自行管理或删除。
-</p>
-
-<h2>四、阅读功能与用户上传内容</h2>
-<p>
-本应用支持用户自行导入电子书或文本文件进行本地阅读。
-</p>
-
-<ul>
-<li>当前版本不提供在线书库。</li>
-<li>不分发或托管书籍内容。</li>
-<li>不上传用户阅读文件至服务器。</li>
-<li>阅读数据及笔记仅存储在用户设备本地。</li>
-</ul>
-
-<h2>五、儿童与未成年人隐私</h2>
-<p>
-本应用的阅读功能可能被儿童、老年人及阅读爱好者使用。
-</p>
-
-<ul>
-<li>不创建账户。</li>
-<li>不收集姓名、联系方式或身份信息。</li>
-<li>不建立用户档案。</li>
-<li>不进行行为分析或广告追踪。</li>
-</ul>
-
-<p>
-由于当前版本不收集可识别个人身份信息，
-因此不会有意收集儿童个人数据。
-</p>
-
-<p>
-如未来版本引入账号系统、云端同步或在线书库功能，
-我们将更新本隐私政策，并在必要时依法获取用户或监护人同意。
-</p>
-
-<h2>六、设备信息与系统日志</h2>
-<p>
-为保障应用稳定运行，Apple 可能向开发者提供匿名崩溃报告
-及基础设备型号、系统版本等信息。
-该类信息不包含可识别个人身份的数据。
-</p>
-
-<h2>七、数据存储与安全</h2>
-<ul>
-<li>所有数据默认存储于用户设备本地（SwiftData）。</li>
-<li>删除应用即删除全部本地数据。</li>
-<li>当前版本不进行云端备份或同步。</li>
-</ul>
-
-<h2>八、未来功能说明</h2>
-<p>
-未来版本可能引入：
-</p>
-
-<ul>
-<li>用户登录系统</li>
-<li>云端数据同步</li>
-<li>在线书库功能</li>
-</ul>
-
-<p>
-如启用上述功能，我们将：
-</p>
-
-<ul>
-<li>更新本隐私政策。</li>
-<li>在应用内显著提示用户。</li>
-<li>明确说明数据存储位置与用途。</li>
-<li>在必要时获取用户或监护人同意。</li>
-</ul>
-
-<h2>九、用户权利</h2>
-<p>
-由于当前版本不建立服务器账户系统，
-用户完全控制本地数据。
-</p>
-
-<ul>
-<li>可随时删除数据。</li>
-<li>删除应用即清除全部数据。</li>
-</ul>
-
-<h2>十、联系我们</h2>
-<p>
-如有隐私相关问题，请联系：support@behere.app
-</p>
+<section class="pricing-section" id="pricing">
+    <div class="section-bg">
+        <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+                <pattern id="grid" width="8" height="8" patternUnits="userSpaceOnUse">
+                    <path d="M 8 0 L 0 0 0 8" fill="none" stroke="rgba(0,102,204,0.04)" stroke-width="0.2"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+    </div>
+    <h2>找到适合您的在场方式</h2>
+    <div class="pricing-grid">
+        <div class="card">
+            <h3>基础版</h3>
+            <p class="price-info">满足日常沟通所需</p>
+            <ul>
+                <li>实时语音转文字 (单次 5 分钟)</li>
+                <li>全模式阅读切换能力</li>
+                <li>最近 7 天历史记录</li>
+            </ul>
+        </div>
+        <div class="card pro">
+            <h3>专业版</h3>
+            <p class="price-info">¥12.00 / 月</p>
+            <ul>
+                <li>无限单次转写时长</li>
+                <li>永久云端历史记录存储</li>
+                <li>深度优化的识别稳定性</li>
+                <li>优先响应的技术支持</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="subscription-terms" id="legal">
+        <p><strong>订阅条款与自动续费说明：</strong></p>
+        <p>• 确认购买后，费用将从您的 iTunes 账户扣除。订阅会自动续期，除非在当前有效期结束前至少 24 小时关闭自动续期。账户将在当前有效期结束前的 24 小时内收到续费账单并确认续费费用。您可以随时在 Apple ID 账户设置中管理或关闭自动续期。</p>
+    </div>
+</section>
 
 <footer>
-© 2026 Synx Tech (Beijing) Co., Ltd.
-（并肩人科技（北京）有限责任公司）
-All Rights Reserved.
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="javascript:void(0)">隐私政策</a>
+            <a href="javascript:void(0)">用户协议</a>
+            <a href="javascript:void(0)">订阅服务协议</a>
+        </div>
+        <p style="font-size: 13px; color: #86868b; margin-top: 20px;">Email: support@ibehere.xyz</p>
+        <p style="font-size: 13px; color: #86868b;">© 2026 Synx Tech (Beijing) Co., Ltd. All Rights Reserved.</p>
+    </div>
 </footer>
 
-</div>
 </body>
 </html>
