@@ -44,7 +44,9 @@
         .hero h1 { 
             font-size: 64px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; 
             background: linear-gradient(180deg, #1d1d1f 60%, #6e6e73);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; /* Chrome/Safari */
+            background-clip: text;         /* 标准属性，兼容 Firefox */
+            -webkit-text-fill-color: transparent;
         }
         .hero p { font-size: 26px; color: var(--text-secondary); margin-bottom: 60px; font-weight: 400; }
 
@@ -93,7 +95,7 @@
         .features-content li strong { color: var(--text-main); font-size: 18px; margin-bottom: 4px; }
         .features-content li p { color: var(--text-secondary); font-size: 16px; margin: 0; line-height: 1.5; }
 
-        /* --- 订阅板块 (含网格还原) --- */
+        /* --- 订阅板块 --- */
         .pricing-section h2 { font-size: 48px; margin-bottom: 60px; font-weight: 600; }
         .pricing-grid { display: flex; gap: 32px; max-width: 980px; width: 100%; z-index: 1; }
         .card { 
@@ -163,7 +165,7 @@
         <div class="links">
             <a href="#features">特性</a>
             <a href="#pricing">订阅</a>
-            <a href="#legal">条款</a>
+            <a href="#legal-terms">条款</a>
         </div>
     </div>
 </nav>
