@@ -146,6 +146,11 @@
         #modalTitle { font-weight: 600; font-size: 17px; }
         .close-btn { background: #f2f2f7; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 20px; line-height: 1; }
         .modal-body { padding: 24px; overflow-y: auto; font-size: 14px; color: #3a3a3c; line-height: 1.6; }
+        .modal-body h1 { margin: 0 0 10px; font-size: 28px; line-height: 1.3; }
+        .modal-body h2 { margin-top: 30px; margin-bottom: 10px; font-size: 18px; line-height: 1.4; }
+        .modal-body p { margin: 12px 0; white-space: pre-wrap; }
+        .modal-body .meta, .modal-body .date { color: #6E6E73; font-size: 13px; margin-bottom: 6px; }
+        .modal-body footer { margin-top: 30px; padding-top: 14px; border-top: 1px solid #f2f2f7; color: #6E6E73; font-size: 13px; }
 
         @media (max-width: 834px) {
             .hero h1 { font-size: 40px; }
@@ -286,9 +291,9 @@
 <footer>
     <div class="footer-content">
         <div class="footer-links">
-            <a class="legal-link" data-file="privacy.html">隐私政策</a>
-            <a class="legal-link" data-file="user-agreement.html">用户协议</a>
-            <a class="legal-link" data-file="subscription-agreement.html">订阅服务协议</a>
+            <a class="legal-link" data-doc="privacy">隐私政策</a>
+            <a class="legal-link" data-doc="userAgreement">用户协议</a>
+            <a class="legal-link" data-doc="subscription">订阅服务协议</a>
         </div>
         <p style="font-size: 13px; color: #86868b; margin-top: 20px;">Email: support@ibehere.xyz</p>
         <p style="font-size: 13px; color: #86868b;">© 2026 Synx Tech (Beijing) Co., Ltd. All Rights Reserved.</p>
@@ -313,26 +318,82 @@
     const modalTitle = document.getElementById('modalTitle');
     const closeBtn = document.getElementById('closeModalBtn');
 
+    const LEGAL_DOCS = {
+        privacy: { title: '隐私政策', file: 'privacy-policy.json', format: 'json' },
+        userAgreement: { title: '用户协议', file: 'user-agreement.json', format: 'json' },
+        subscription: { title: '订阅服务协议', file: 'subscription-agreement.html', format: 'html' }
+    };
+
     document.querySelectorAll('.legal-link').forEach(link => {
         link.onclick = function() {
-            const fileName = this.getAttribute('data-file');
-            const title = this.innerText;
-            openModal(fileName, title);
+            const docKey = this.getAttribute('data-doc');
+            const config = LEGAL_DOCS[docKey];
+
+            if (!config) {
+                modalTitle.innerText = '协议详情';
+                modalBody.innerHTML = '<p style="padding:20px; color:#ff453a; text-align:center;">未找到对应的协议配置。</p>';
+                modal.style.display = 'flex';
+                setTimeout(() => modal.classList.add('active'), 10);
+                document.body.style.overflow = 'hidden';
+                return;
+            }
+
+            openModal(config.file, config.title, config.format);
         };
     });
 
-    function openModal(file, title) {
+    function escapeHTML(value) {
+        return String(value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function renderParagraphs(paragraphs = []) {
+        return paragraphs.map(paragraph => `<p>${escapeHTML(paragraph)}</p>`).join('');
+    }
+
+    function renderLegalJson(data) {
+        const sections = (data.sections || []).map(section => `
+            <section>
+                <h2>${escapeHTML(section.title)}</h2>
+                ${renderParagraphs(section.paragraphs)}
+            </section>
+        `).join('');
+
+        return `
+            <h1>${escapeHTML(data.documentTitle || '')}</h1>
+            <div class="meta">运营主体：${escapeHTML(data.operator?.nameCN || '')} / ${escapeHTML(data.operator?.nameEN || '')}</div>
+            <div class="date">生效日期：${escapeHTML(data.effectiveDate || '')}</div>
+            <p>${escapeHTML(data.subtitle || '')}</p>
+            ${sections}
+            <footer>${escapeHTML(data.footer || '')}</footer>
+        `;
+    }
+
+    function openModal(file, title, format = 'html') {
         modalTitle.innerText = title;
-        modalBody.innerHTML = '<div class="loading" style="text-align: center; padding: 40px; color: #86868b;">正在加载...</div>';
+        modalBody.innerHTML = `<div class="loading" style="text-align: center; padding: 40px; color: #86868b;">正在加载${title}...</div>`;
         modal.style.display = 'flex';
         setTimeout(() => modal.classList.add('active'), 10);
         document.body.style.overflow = 'hidden';
 
-        fetch(file)
-            .then(response => { if (!response.ok) throw new Error('无法获取文件内容'); return response.text(); })
-            .then(html => {
+        const isJson = format === 'json' || file.endsWith('.json');
+
+        fetch(file, { cache: 'no-store' })
+            .then(response => {
+                if (!response.ok) throw new Error('无法获取文件内容');
+                return isJson ? response.json() : response.text();
+            })
+            .then(content => {
+                if (isJson) {
+                    modalBody.innerHTML = renderLegalJson(content);
+                    return;
+                }
                 const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
+                const doc = parser.parseFromString(content, 'text/html');
                 modalBody.innerHTML = doc.body.innerHTML;
             })
             .catch(err => {
